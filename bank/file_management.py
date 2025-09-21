@@ -35,19 +35,16 @@ def open_file(given_file_name):
         fields = [key for key in data_list[0]]
 
 
-
 def write_to_file():
     # from https://www.geeksforgeeks.org/python/working-csv-files-python/
-    with open(file_name, 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fields)
+    with open(file_name, 'w') as file:
+        writer = csv.DictWriter(file, fieldnames=fields)
         writer.writeheader()
         writer.writerows(data_list)
-    
-    
+        
 
 
 def get_row(customer_id):
-    
     for data in data_list:
         if data["account_id"] == customer_id:
             return data

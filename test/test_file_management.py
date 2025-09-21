@@ -3,7 +3,12 @@ import unittest
 import bank.file_management as file
 
 class TestDBInteraction(unittest.TestCase):
-    
+    def test_is_number(self):
+        self.assertTrue(file.is_number("11"))
+        self.assertTrue(file.is_number("-11"))
+        self.assertFalse(file.is_number("hello"))
+        
+        
     def test_open_file(self):
         with self.assertRaises(FileNotFoundError):
             file.open_file("non_existent_file.csv")
@@ -15,3 +20,8 @@ class TestDBInteraction(unittest.TestCase):
         # testing when not found
         self.assertEqual(file.get_row(10009), -1)
     
+    def test_write_to_file(self):
+        pass
+    
+    def test_update_row(self):
+        pass
