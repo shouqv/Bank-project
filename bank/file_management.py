@@ -1,7 +1,8 @@
 import csv 
 
 data_list = []  
-file = ""
+file_name = ""
+fields = []
 
 def is_number(string):
     # crediting https://www.geeksforgeeks.org/python/python-check-if-given-string-is-numeric-or-not/
@@ -13,12 +14,15 @@ def is_number(string):
 
 
 
-def open_file(file_name):
+def open_file(given_file_name):
+    global fields
+    global file_name
+    global data_list
     # from https://www.geeksforgeeks.org/python/working-csv-files-python/
-    with open(file_name, mode='r') as file:
+    with open(given_file_name, mode='r') as file:
         csv_reader = csv.DictReader(file)  
 
-        file = file_name
+        file_name = given_file_name
         for row in csv_reader:
             data_list.append(row)
         
@@ -27,7 +31,19 @@ def open_file(file_name):
             for key,value in row.items():
                 if is_number(value):
                     row[f"{key}"] = int(value)
+                    
+        fields = [key for key in data_list[0]]
 
+
+
+def write_to_file():
+    # from https://www.geeksforgeeks.org/python/working-csv-files-python/
+    with open(file_name, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(data_list)
+    
+    
 
 
 def get_row(customer_id):
@@ -39,8 +55,15 @@ def get_row(customer_id):
     return -1 #could raise a customized error here
 
 
-# open_file("data/bank.csv")
-# print(get_row(10004))
+
+def update_row(customer_id , field , new_value):
+    
+    for i in range(len(data_list)):
+        if data_list[i]["account_id"] == customer_id:
+            data_list[i][field] = new_value
+    write_to_file()
+
+
 
 
 
