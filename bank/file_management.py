@@ -6,7 +6,8 @@ class FileManagement():
         self.file_name = file_name
         self.data_list = []
         self.fields = []
-        self.load_data()
+        if file_name != "": #to be able to instate it in the test class
+            self.load_data()
         
     def is_number(self, string):
         # crediting https://www.geeksforgeeks.org/python/python-check-if-given-string-is-numeric-or-not/
@@ -15,29 +16,33 @@ class FileManagement():
             return True
         except ValueError:
             return False
+        except TypeError:
+            return False
 
 
 
     def load_data(self):
         # from https://www.geeksforgeeks.org/python/working-csv-files-python/
-        with open(self.file_name, mode='r') as file:
+        with open(self.file_name, 'r' , newline="") as file:
             csv_reader = csv.DictReader(file)  
 
             for row in csv_reader:
                 self.data_list.append(row)
-
+                
+            self.fields = csv_reader.fieldnames 
+        
             # to convert the read values to numbers 
             for row in self.data_list:
                 for key,value in row.items():
                     if self.is_number(value):
                         row[f"{key}"] = int(value)
 
-            self.fields = [key for key in self.data_list[0]]
+
 
 
     def write_to_file(self):
         # from https://www.geeksforgeeks.org/python/working-csv-files-python/
-        with open(self.file_name, 'w') as file:
+        with open(self.file_name, 'w', newline="") as file:
             writer = csv.DictWriter(file, fieldnames=self.fields)
             writer.writeheader()
             writer.writerows(self.data_list)
@@ -68,3 +73,4 @@ class FileManagement():
 
 
 # file = FileManagement("data/bank.csv")
+# file.add_row(account_id=10,frst_name = "nada",last_name = "almutairi",password="327gh",balance_checking=300,balance_savings=600,status="active")
