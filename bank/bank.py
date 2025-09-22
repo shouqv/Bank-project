@@ -57,6 +57,7 @@ class Customer():
         print("Please enter a valid choice")
         print("a) Transfer from checking to saving: ")
         print("b) Transfer from saving to checking: ")
+        print("c) Transfer to another customer account: ")
         choice = input("Choice: ").lower()
         
         match choice:
@@ -64,19 +65,26 @@ class Customer():
                 self.saving_account.transfer(self.file_manager,account_id,self.checking_account, amount)
             case "b":
                 self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
+            case "c":
+                self.withdraw(account_id,amount)
+                other_customer = int(input("Enter the account id to transfer it to: "))
+                if other_customer != account_id:
+                    self.checking_account.deposit(self.file_manager ,other_customer, amount, False)
             case _:
                 print("Invalid choice")
 
 
 class CheckingAccount():
-    def withdraw(self ,file, account_id, amount):
+    def withdraw(self ,file, account_id, amount, flag=True):
         current_balance_checking = file.get_field_info(account_id, "balance_checking")
         if str(current_balance_checking).lower() != "none":
-            print(f"Current checking balance:{current_balance_checking}")
+            
             # amount = int(input("Amount: "))
             amount = int(amount)
             new_balance_checking = current_balance_checking - amount
-            print(f"The new checking balance: {new_balance_checking}")
+            if flag:
+                print(f"Current checking balance:{current_balance_checking}")
+                print(f"The new checking balance: {new_balance_checking}")
             file.update_row(account_id, "balance_checking" , new_balance_checking)
         else:
             answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
@@ -84,14 +92,16 @@ class CheckingAccount():
                 self.create_account(file,account_id )
 
     
-    def deposit(self ,file, account_id, amount):
+    def deposit(self ,file, account_id, amount,flag = True):
         current_balance_checking = file.get_field_info(account_id, "balance_checking")
         if str(current_balance_checking).lower() != "none":
-            print(f"Current checking balance:{current_balance_checking}")
+ 
             # amount = int(input("Amount: "))
             amount = int(amount)
             new_balance_checking = current_balance_checking + amount
-            print(f"The new checking balance: {new_balance_checking}")
+            if flag:
+                print(f"Current checking balance:{current_balance_checking}")
+                print(f"The new checking balance: {new_balance_checking}")
             file.update_row(account_id, "balance_checking" , new_balance_checking)
         else:
             answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no) ").lower()
@@ -109,14 +119,16 @@ class CheckingAccount():
         
 
 class SavingAccount():
-    def withdraw(self ,file, account_id , amount ):
+    def withdraw(self ,file, account_id , amount, flag = True):
         current_balance_saving = file.get_field_info(account_id, "balance_savings")
         if str(current_balance_saving).lower() != "none":
-            print(f"Current saving balance:{current_balance_saving}")
+
             # amount = int(input("Amount: "))
             amount = int(amount)
             new_balance_saving = current_balance_saving - amount
-            print(f"The new saving balance: {new_balance_saving}")
+            if flag:
+                print(f"Current saving balance:{current_balance_saving}")
+                print(f"The new saving balance: {new_balance_saving}")
             file.update_row(account_id, "balance_savings" , new_balance_saving)
             
         else:
@@ -124,14 +136,16 @@ class SavingAccount():
             if answer == "yes":
                 self.create_account(file,account_id )
     
-    def deposit(self,file,account_id , amount):
+    def deposit(self,file,account_id , amount,flag=True):
         current_balance_saving = file.get_field_info(account_id, "balance_savings")
         if str(current_balance_saving).lower() != "none":
-            print(f"Current saving balance:{current_balance_saving}")
+
             # amount = int(input("Amount: "))
             amount = int(amount)
             new_balance_saving = current_balance_saving + amount
-            print(f"The new saving balance: {new_balance_saving}")
+            if flag:
+                print(f"Current saving balance:{current_balance_saving}")
+                print(f"The new saving balance: {new_balance_saving}")
             file.update_row(account_id, "balance_savings" , new_balance_saving)
         else:
             answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
@@ -155,4 +169,4 @@ customer = Customer("data/bank.csv")
 
 # # customer.add_new_customer()
 
-customer.transfer(10, 100)
+customer.transfer(10, 80)
