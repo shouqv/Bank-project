@@ -51,7 +51,13 @@ class FileManagement():
 
         return -1 #could raise a customized error here
 
-
+    def add_row(self , **kwargs):
+        for key in kwargs:
+            if key not in self.fields:
+                return #could rise an error here
+        
+        self.data_list.append(kwargs)
+        self.write_to_file()
 
     def update_row(self,customer_id, field , new_value):
         for i in range(len(self.data_list)):
@@ -61,3 +67,4 @@ class FileManagement():
 
 
 
+# file = FileManagement("data/bank.csv")

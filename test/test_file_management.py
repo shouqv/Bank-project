@@ -25,3 +25,5 @@ class TestDBInteraction(unittest.TestCase):
     
     def test_update_row(self):
         pass
+    def test_add_row(self):
+        pass
