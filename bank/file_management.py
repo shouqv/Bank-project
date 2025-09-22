@@ -34,6 +34,8 @@ class FileManagement():
             # to convert the read values to numbers 
             for row in self.data_list:
                 for key,value in row.items():
+                    if key == "password":
+                        continue
                     if self.is_number(value):
                         row[f"{key}"] = int(value)
 
@@ -50,6 +52,7 @@ class FileManagement():
 
 
     def get_row(self,customer_id):
+        
         for data in self.data_list:
             if data["account_id"] == customer_id:
                 return data
@@ -69,6 +72,16 @@ class FileManagement():
             if self.data_list[i]["account_id"] == customer_id:
                 self.data_list[i][field] = new_value
         self.write_to_file()
+        
+    def get_field_info(self,customer_id , field):
+        data_row= self.get_row(customer_id)
+        if data_row != -1:
+            for key , value in data_row.items():
+                if key == field:
+                    return value
+        else:
+            return #custome error here
+        
 
 
 
