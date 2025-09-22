@@ -1,3 +1,3 @@
 account_id,frst_name,last_name,password,balance_checking,balance_savings,status
-10,shouq,almutairi,3456,320,220,active
+10,shouq,almutairi,3456,-90,220,inactive
 11,nada,al,3287,1160,500,active
