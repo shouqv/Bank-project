@@ -135,5 +135,5 @@ customer = Customer("data/bank.csv")
 
 # # customer.add_new_customer()
 
-# customer.withdraw(10)
-# customer.deposit(10)
+customer.withdraw(10)
+customer.deposit(10)
