@@ -46,8 +46,12 @@ class Customer():
         elif account == "saving":
             self.saving_account.withdraw(self.file_manager ,account_id)
             
-    def deposit():
-        pass
+    def deposit(self, account_id):
+        account = input("deposit from: (checking/saving): ")
+        if account == "checking":
+            self.checking_account.deposit(self.file_manager ,account_id )
+        elif account == "saving":
+            self.saving_account.deposit(self.file_manager ,account_id)
     def transfer():
         pass
 
@@ -55,44 +59,81 @@ class Customer():
 class CheckingAccount():
     def withdraw(self ,file, account_id ):
         current_balance_checking = file.get_field_info(account_id, "balance_checking")
-        print(f"Current checking balance:{current_balance_checking}")
-        amount = int(input("Amount: "))
-        new_balance_checking = current_balance_checking - amount
-        print(f"The new checking balance: {new_balance_checking}")
-        file.update_row(account_id, "balance_checking" , new_balance_checking)
-        
+        if str(current_balance_checking).lower() != "none":
+            print(f"Current checking balance:{current_balance_checking}")
+            amount = int(input("Amount: "))
+            new_balance_checking = current_balance_checking - amount
+            print(f"The new checking balance: {new_balance_checking}")
+            file.update_row(account_id, "balance_checking" , new_balance_checking)
+        else:
+            answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
+            if answer == "yes":
+                self.create_account(file,account_id )
+
     
-    def deposit():
-        pass
+    def deposit(self ,file, account_id ):
+        current_balance_checking = file.get_field_info(account_id, "balance_checking")
+        if str(current_balance_checking).lower() != "none":
+            print(f"Current checking balance:{current_balance_checking}")
+            amount = int(input("Amount: "))
+            new_balance_checking = current_balance_checking + amount
+            print(f"The new checking balance: {new_balance_checking}")
+            file.update_row(account_id, "balance_checking" , new_balance_checking)
+        else:
+            answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no) ").lower()
+            if answer == "yes":
+                self.create_account(file,account_id )
     
     def transfer():
         pass
     
-    def add_account():
-        pass
+    def create_account(self,file, account_id):
+        new_balance_checking = int(input("Enter the chekcing account balance: "))
+        file.update_row(account_id,"balance_checking",new_balance_checking)
+        print(f"the checking account has been created")
+        
 
 class SavingAccount():
     def withdraw(self ,file, account_id ):
         current_balance_saving = file.get_field_info(account_id, "balance_savings")
-        print(f"Current saving balance:{current_balance_saving}")
-        amount = int(input("Amount: "))
-        new_balance_saving = current_balance_saving - amount
-        print(f"The new saving balance: {new_balance_saving}")
-        file.update_row(account_id, "balance_checking" , new_balance_saving)
+        if str(current_balance_saving).lower() != "none":
+            print(f"Current saving balance:{current_balance_saving}")
+            amount = int(input("Amount: "))
+            new_balance_saving = current_balance_saving - amount
+            print(f"The new saving balance: {new_balance_saving}")
+            file.update_row(account_id, "balance_checking" , new_balance_saving)
+        else:
+            answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
+            if answer == "yes":
+                self.create_account(file,account_id )
     
-    def deposit():
-        pass
+    def deposit(self,file,account_id):
+        current_balance_saving = file.get_field_info(account_id, "balance_savings")
+        if str(current_balance_saving).lower() != "none":
+            print(f"Current saving balance:{current_balance_saving}")
+            amount = int(input("Amount: "))
+            new_balance_saving = current_balance_saving + amount
+            print(f"The new checking balance: {new_balance_saving}")
+            file.update_row(account_id, "balance_checking" , new_balance_saving)
+        else:
+            answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
+            if answer == "yes":
+                self.create_account(file,account_id )
     
     def transfer():
         pass
-    def add_account():
-        pass
+    
+    def create_account(self, file, account_id):
+        new_balance_saving = int(input("Enter the saving account balance: "))
+        file.update_row(account_id,"balance_savings",new_balance_saving)
+        print(f"the saving account has been created")
     
     
     
     
 customer = Customer("data/bank.csv")
 
-# customer.add_new_customer()
+# # customer.add_new_customer()
 
-customer.withdraw(10)
+# customer.withdraw(10)
+# customer.deposit(10)
