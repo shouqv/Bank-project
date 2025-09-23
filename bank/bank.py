@@ -76,51 +76,57 @@ class Customer():
 
 class CheckingAccount():
     overdrafts_count = {}
+    
     def withdraw(self ,file, account_id, amount, flag=True):
+        status = file.get_field_info(account_id, "status").lower()
+        print(status)
         current_balance_checking = file.get_field_info(account_id, "balance_checking")
-        if str(current_balance_checking).lower() != "none":
+        if status == "active":
             
-            # if current_balance_checking < 0 and (amount + 35 )
-            amount = int(amount)
-            new_balance_checking = current_balance_checking - amount
-            
-            if account_id not in CheckingAccount.overdrafts_count:
-                CheckingAccount.overdrafts_count[account_id] = 0
-            
-            
-            
-            if CheckingAccount.overdrafts_count[account_id] >= 2:
-                file.update_row(account_id, "status" , "inactive")
-                print("You have exceeded the overcraft limit, account deactivated")
-                return
-            print(CheckingAccount.overdrafts_count)
-                            
-            if amount > current_balance_checking:
-                if new_balance_checking - 35 < -100:
-                    print("you have exceeded the limit of overdrafts! operation canceled")
-                    return 
-                else:
-                    if account_id in CheckingAccount.overdrafts_count:
-                        if CheckingAccount.overdrafts_count[account_id] <3:
-                            new_balance_checking -= 35
-                            print("Overdraft! 35 fee applied.")
-                            CheckingAccount.overdrafts_count[account_id] +=1
-                        
+            if str(current_balance_checking).lower() != "none":
 
-            if flag:
-                print(f"Current checking balance:{current_balance_checking}")
-                print(f"The new checking balance: {new_balance_checking}")
-            file.update_row(account_id, "balance_checking" , new_balance_checking)
+                amount = int(amount)
+                new_balance_checking = current_balance_checking - amount
+
+                if account_id not in CheckingAccount.overdrafts_count:
+                    CheckingAccount.overdrafts_count[account_id] = 0
+
+
+
+                if CheckingAccount.overdrafts_count[account_id] >= 2:
+                    file.update_row(account_id, "status" , "inactive")
+
+                    print("You have exceeded the overcraft limit, account deactivated")
+                    return
+
+                if amount > current_balance_checking:
+                    if new_balance_checking - 35 < -100:
+                        print("you have exceeded the limit of overdrafts! operation canceled")
+                        return 
+                    else:
+                        if account_id in CheckingAccount.overdrafts_count:
+                            if CheckingAccount.overdrafts_count[account_id] <3:
+                                new_balance_checking -= 35
+                                print("Overdraft! 35 fee applied.")
+                                CheckingAccount.overdrafts_count[account_id] +=1
+
+
+                if flag:
+                    print(f"Current checking balance: {current_balance_checking}")
+                    print(f"The new checking balance: {new_balance_checking}")
+                file.update_row(account_id, "balance_checking" , new_balance_checking)
+            else:
+                answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
+                if answer == "yes":
+                    self.create_account(file,account_id)
         else:
-            answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
-            if answer == "yes":
-                self.create_account(file,account_id )
+            print("Your account is inactive, please pay", current_balance_checking * -1)
 
     
     def deposit(self ,file, account_id, amount,flag = True):
         current_balance_checking = file.get_field_info(account_id, "balance_checking")
         if str(current_balance_checking).lower() != "none":
- 
+
             # amount = int(input("Amount: "))
             amount = int(amount)
             new_balance_checking = current_balance_checking + amount
@@ -190,9 +196,9 @@ class SavingAccount():
     
     
     
-customer = Customer("data/bank.csv")
+# customer = Customer("data/bank.csv")
 
-# # customer.add_new_customer()
+# # # customer.add_new_customer()
 
-while True:
-    customer.withdraw(10, 10)
+# while True:
+#     customer.withdraw(10, 10)
