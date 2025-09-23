@@ -49,18 +49,7 @@ class Customer():
             print("invalid choice")
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
-        # print("Please enter a valid choice")
-        # print("a) Transfer from checking to saving: ")
-        # print("b) Transfer from saving to checking: ")
-        # print("c) Transfer to another customer account: ")
-        # choice = input("Choice: ").lower()
-        # self.get_current_balance(account_id , "checking")
-        # self.get_current_balance(account_id , "saving")
-        
-        # if choice.lower() == "c":
-        #     account = input("Transfer from checking or saving (checking/saving): ")            
-        # amount = int(input("Amount: "))
-        
+
         match choice:
             case "a":
                 self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
