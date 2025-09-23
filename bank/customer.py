@@ -9,26 +9,17 @@ class Customer():
         self.checking_account = CheckingAccount()
         self.saving_account = SavingAccount()
         
-    def add_new_customer(self):
-        account_id = input("Enter account id ")
-        first_name = input("Enter first name ")
-        last_name = input("Enter last name ")
-        password = input("Enter your password ")
-        print("Type None if you dont wish to create any of the below account")
-        balance_checking = input("Chekcing account balance ")
-        balance_savings = input("Saving account balance ")
-        status="active"
-        
-        
+    def add_new_customer(self, account_id, first_name, last_name, password, balance_checking, balance_savings):
+        status = "active"
         self.file_manager.add_row(
             account_id=account_id,
-            frst_name=first_name,
+            first_name=first_name,
             last_name=last_name,
             password=password,
             balance_checking=balance_checking,
             balance_savings=balance_savings,
-            status=status
-        )
+            status=status)
+
     
         
         
@@ -57,25 +48,29 @@ class Customer():
         else:
             print("invalid choice")
             
-    def transfer(self,account_id):
-        print("Please enter a valid choice")
-        print("a) Transfer from checking to saving: ")
-        print("b) Transfer from saving to checking: ")
-        print("c) Transfer to another customer account: ")
-        choice = input("Choice: ").lower()
-        self.get_current_balance(account_id , "checking")
-        self.get_current_balance(account_id , "saving")
-        if choice.lower() == "c":
-            account = input("Transfer from checking or saving (checking/saving): ")            
-        amount = int(input("Amount: "))
+    def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
+        # print("Please enter a valid choice")
+        # print("a) Transfer from checking to saving: ")
+        # print("b) Transfer from saving to checking: ")
+        # print("c) Transfer to another customer account: ")
+        # choice = input("Choice: ").lower()
+        # self.get_current_balance(account_id , "checking")
+        # self.get_current_balance(account_id , "saving")
+        
+        # if choice.lower() == "c":
+        #     account = input("Transfer from checking or saving (checking/saving): ")            
+        # amount = int(input("Amount: "))
+        
         match choice:
             case "a":
                 self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
             case "b":
                 self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
             case "c":
-                self.withdraw(account_id , account, amount)
-                other_customer = int(input("Enter the account id to transfer it to: "))
+                if not from_account or not other_customer:
+                    raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
+                self.withdraw(account_id , from_account, amount)
+                # other_customer = int(input("Enter the account id to transfer it to: "))
                 if other_customer != account_id:
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
             case _:
