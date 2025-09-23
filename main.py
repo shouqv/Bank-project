@@ -27,46 +27,49 @@ while True:
             if customer.login(account_id,password):
                 # get customer name
                 while True:
-                    print("1) Withdraw  2) Deposit 3) Transfer 4) Logout")
-                    selection = input("Choice: ")
-                    match selection:
-                        case "1":
-                            account = input("Withdraw from (checking/saving): ")
-                            customer.get_current_balance(account_id , account)
-                            amount = int(input("Amount: "))
-                            customer.withdraw(account_id, account , amount)
-                            
-                        case "2":
-                            account = input("Deposite from (checking/saving): ")
-                            customer.get_current_balance(account_id , account)
-                            amount = int(input("Amount: "))               
-                            customer.deposit(account_id, account , amount)
-                            
-                            
-                        case "3":
-                                print("a) Transfer from checking to saving")
-                                print("b) Transfer from saving to checking")
-                                print("c) Transfer to another customer account")
-                                print()
-                                customer.get_current_balance(account_id , "checking")
-                                customer.get_current_balance(account_id , "saving") 
-                                print()                           
-                                choice = input("Choice: ").lower()
-                                if choice == "c":
-                                    from_account = input("Transfer from (checking/saving): ").lower() #just personal preference, he chooses the account then the ammount                                   
+                    try:
+                        print("1) Withdraw  2) Deposit 3) Transfer 4) Logout")
+                        selection = input("Choice: ")
+                        match selection:
+                            case "1":
+                                account = input("Withdraw from (checking/saving): ")
+                                print(customer.get_current_balance(account_id , account))
                                 amount = int(input("Amount: "))
+                                customer.withdraw(account_id, account , amount)
 
-        
-                                if choice == "c":
-                                    other_customer = int(input("Enter the account ID to transfer to: "))
-                                    customer.transfer(account_id, choice, amount, from_account=from_account, other_customer=other_customer)
-                                    print(f"Transferred {amount} from {from_account} to customer {other_customer}")
-                                else:
-                                    customer.transfer(account_id, choice, amount)
-                                    print("Transfer completed successfully.")
-                                
-                        case "4":
-                            break
+                            case "2":
+                                account = input("Deposite from (checking/saving): ")
+                                print(customer.get_current_balance(account_id , account))
+                                amount = int(input("Amount: "))               
+                                customer.deposit(account_id, account , amount)
+
+
+                            case "3":
+                                    print("a) Transfer from checking to saving")
+                                    print("b) Transfer from saving to checking")
+                                    print("c) Transfer to another customer account")
+                                    print()
+                                    print(customer.get_current_balance(account_id , "checking"))
+                                    print(customer.get_current_balance(account_id , "saving"))
+                                    print()                           
+                                    choice = input("Choice: ").lower()
+                                    if choice == "c":
+                                        from_account = input("Transfer from (checking/saving): ").lower() #just personal preference, he chooses the account then the ammount                                   
+                                    amount = int(input("Amount: "))
+
+
+                                    if choice == "c":
+                                        other_customer = int(input("Enter the account ID to transfer to: "))
+                                        customer.transfer(account_id, choice, amount, from_account=from_account, other_customer=other_customer)
+                                        print(f"Transferred {amount} from {from_account} to customer {other_customer}")
+                                    else:
+                                        customer.transfer(account_id, choice, amount)
+                                        print("Transfer completed successfully.")
+
+                            case "4":
+                                break
+                    except ValueError as e:
+                        print(e)
             else:
                 print("Password incorrect!")
         case "3":

@@ -69,6 +69,9 @@ class Customer():
             case "c":
                 if not from_account or not other_customer:
                     raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
+                
+                if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
+                    raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
                 self.withdraw(account_id , from_account, amount)
                 # other_customer = int(input("Enter the account id to transfer it to: "))
                 if other_customer != account_id:
@@ -78,6 +81,6 @@ class Customer():
                 
     def get_current_balance(self ,account_id , account ):
         if account == "checking":
-            self.checking_account.get_current_checking_balance(self.file_manager ,account_id )
+            return self.checking_account.get_current_checking_balance(self.file_manager ,account_id )
         elif account == "saving":
-            self.saving_account.get_current_saving_balance(self.file_manager ,account_id)
+            return self.saving_account.get_current_saving_balance(self.file_manager ,account_id)
