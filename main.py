@@ -1,4 +1,4 @@
-from bank.bank import Customer
+from bank.customer import Customer
 
 customer = Customer("data/bank.csv")
 print("welcome to the bank")
@@ -12,7 +12,7 @@ while True:
             customer.add_new_customer()
         case "2":
             account_id = int(input("Account ID: "))
-            password = int(input("Account ID: "))
+            password = input("password: ")
             
             if customer.login(account_id,password):
                 # get customer name
@@ -21,17 +21,23 @@ while True:
                     selection = input("Choice: ")
                     match selection:
                         case "1":
-                            account = input("withdraw from: (checking/saving): ")
-                            amount = input("Amount: ")
-                            customer.withdraw(account_id,amount , account)
+                            account = input("Withdraw from (checking/saving): ")
+                            customer.get_current_balance(account_id , account)
+                            amount = int(input("Amount: "))
+                            customer.withdraw(account_id, account , amount)
                         case "2":
-                            account = input("Deposit from: (checking/saving): ")
-                            amount = input("Amount: ")
-                            customer.withdraw(account_id,amount , account)
+                            account = input("Deposite from (checking/saving): ")
+                            customer.get_current_balance(account_id , account)
+                            amount = int(input("Amount: "))               
+                            
+                            customer.deposit(account_id, account , amount)
                         case "3":
-                            customer.transfer()
+
+                            customer.transfer(account_id)
                         case "4":
                             break
+            else:
+                print("Password incorrect!")
         case "3":
             break
         case _:
