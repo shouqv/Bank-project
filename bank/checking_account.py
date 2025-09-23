@@ -1,4 +1,4 @@
-
+from .custome_exceptions import InactiveAccountError , AccountIsNoneError,OverdraftRejectedError ,OverdraftLimitExceededError
 class CheckingAccount():
     overdrafts_count = {}
     
@@ -7,7 +7,6 @@ class CheckingAccount():
         
         current_balance_checking = self.get_current_checking_balance(file,account_id)
         if status == "active":
-            # if str(current_balance_checking).lower() != "none":
             if self.check_if_account_exist(file,account_id):
 
 
@@ -21,14 +20,13 @@ class CheckingAccount():
 
                 if CheckingAccount.overdrafts_count[account_id] >= 2:
                     file.update_row(account_id, "status" , "inactive")
-
-                    print("You have exceeded the overcraft limit, account deactivated")
-                    return
+                    raise OverdraftLimitExceededError("You have exceeded the overdraft attempt limit, account deactivated")
+                    
 
                 if amount > current_balance_checking:
                     if new_balance_checking - 35 < -100:
-                        print("you have exceeded the limit of overdrafts! operation canceled")
-                        return 
+                        raise OverdraftRejectedError("you have exceeded the balance limit of -100$ including the fee! operation canceled")
+                        
                     else:
                         if account_id in CheckingAccount.overdrafts_count:
                             if CheckingAccount.overdrafts_count[account_id] <3:
@@ -41,11 +39,12 @@ class CheckingAccount():
                     print(f"The new checking balance: {new_balance_checking}")
                 file.update_row(account_id, "balance_checking" , new_balance_checking)
             else:
-                answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
-                if answer == "yes":
-                    self.create_account(file,account_id)
+                # answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no)").lower()
+                # if answer == "yes":
+                #     self.create_account(file,account_id)
+                raise AccountIsNoneError(f"Error: the checking account with id= {account_id}, have not been initated yet", "balance_checking")
         else:
-            print("Your account is inactive, please pay", current_balance_checking * -1)
+            raise InactiveAccountError(f"The account id {account_id} is inactive, please pay {current_balance_checking * -1}")
 
     
     
@@ -67,18 +66,19 @@ class CheckingAccount():
                 print(f"The new checking balance: {new_balance_checking}")
             file.update_row(account_id, "balance_checking" , new_balance_checking)
         else:
-            answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no) ").lower()
-            if answer == "yes":
-                self.create_account(file,account_id )
+            # answer = input("You dont have a checkingaccount, do you wish to create one? (yes/no) ").lower()
+            # if answer == "yes":
+            #     self.create_account(file,account_id )
+            raise AccountIsNoneError(f"Error: the checking account with id={account_id}, have not been initated yet", "balance_checking")
     
     def transfer(self,file ,  account_id,saving_account , amount):
         saving_account.withdraw(file,account_id, amount)
         self.deposit(file,account_id , amount)
     
-    def create_account(self,file, account_id):
-        new_balance_checking = int(input("Enter the chekcing account balance: "))
-        file.update_row(account_id,"balance_checking",new_balance_checking)
-        print(f"the checking account has been created")
+    # def create_account(self,file, account_id, new_balance_checking):
+    #     # new_balance_checking = int(input("Enter the chekcing account balance: "))
+    #     file.update_row(account_id,"balance_checking",new_balance_checking)
+    #     # print(f"the checking account has been created")
         
         
     def get_current_checking_balance(self,file,account_id):
@@ -93,5 +93,14 @@ class CheckingAccount():
             return False
         else:
             return True
+
+
+    # def check_if_account_active(self, file,account_id):
+    #     status = file.get_field_info(account_id, "status").lower()
+    #     if status == "active":
+    #         return True
+    #     else:
+    #         return False
+        
         
         

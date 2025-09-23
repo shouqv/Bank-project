@@ -1,4 +1,5 @@
 from bank.customer import Customer
+import bank.custome_exceptions as exceptions
 
 customer = Customer("data/bank.csv")
 print("welcome to the bank")
@@ -70,6 +71,20 @@ while True:
                                 break
                     except ValueError as e:
                         print(e)
+                    except exceptions.InactiveAccountError as e:
+                        print(e)
+                    except exceptions.AccountIsNoneError as e:
+                        print(e)
+                        if e.account_name:
+                            answer = input(f"You dont have a {e.account_name}, do you wish to create one? (yes/no) ").lower()
+                            if answer == "yes":
+                                inital_balance = int(input("Enter the new account balance: "))
+                                customer.create_account(account_id , e.account_name,inital_balance)
+                    except exceptions.OverdraftRejectedError as e:
+                        print(e)
+                    except exceptions.OverdraftLimitExceededError as e:
+                        print(e)
+                        
             else:
                 print("Password incorrect!")
         case "3":
