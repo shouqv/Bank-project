@@ -5,9 +5,10 @@ class CheckingAccount():
     def withdraw(self ,file, account_id, amount , flag=True):
         status = file.get_field_info(account_id, "status").lower()
         
-        current_balance_checking = file.get_field_info(account_id, "balance_checking")
+        current_balance_checking = self.get_current_checking_balance(file,account_id)
         if status == "active":
-            if str(current_balance_checking).lower() != "none":
+            # if str(current_balance_checking).lower() != "none":
+            if self.check_if_account_exist(file,account_id):
 
 
                 amount = int(amount)
@@ -49,9 +50,9 @@ class CheckingAccount():
     
     
     def deposit(self ,file, account_id, amount , flag = True):
-        current_balance_checking = file.get_field_info(account_id, "balance_checking")
-        if str(current_balance_checking).lower() != "none":
-
+        current_balance_checking = self.get_current_checking_balance(file,account_id)
+        # if str(current_balance_checking).lower() != "none":
+        if self.check_if_account_exist(file,account_id):
             
             amount = int(amount)
             new_balance_checking = current_balance_checking + amount

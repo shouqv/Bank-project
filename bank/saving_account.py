@@ -2,8 +2,8 @@
 
 class SavingAccount():
     def withdraw(self ,file, account_id ,amount, flag = True):
-        current_balance_saving = file.get_field_info(account_id, "balance_savings")
-        if str(current_balance_saving).lower() != "none":
+        current_balance_saving = self.get_current_saving_balance(file,account_id)
+        if self.check_if_account_exist(file,account_id):
             
             amount = int(amount)
             
@@ -21,8 +21,8 @@ class SavingAccount():
                 self.create_account(file,account_id )
     
     def deposit(self,file,account_id ,amount,flag=True):
-        current_balance_saving = file.get_field_info(account_id, "balance_savings")
-        if str(current_balance_saving).lower() != "none":
+        current_balance_saving = self.get_current_saving_balance(file , account_id)
+        if self.check_if_account_exist(file,account_id):
         
             amount = int(amount)
 
@@ -49,4 +49,13 @@ class SavingAccount():
     
     def get_current_saving_balance(self,file,account_id):
         current_saving_balance = file.get_field_info(account_id, "balance_savings")
-        print(f"Current sacing balance: {current_saving_balance}")
+        return current_saving_balance
+        
+        
+    def check_if_account_exist(self,file ,account_id):
+        current_balance = self.get_current_saving_balance(file,account_id)
+        if str(current_balance).lower() == "none":
+            return False
+        else:
+            return True
+        

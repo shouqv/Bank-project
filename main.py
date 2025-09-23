@@ -33,13 +33,13 @@ while True:
                         match selection:
                             case "1":
                                 account = input("Withdraw from (checking/saving): ")
-                                print(customer.get_current_balance(account_id , account))
+                                print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))
                                 customer.withdraw(account_id, account , amount)
 
                             case "2":
                                 account = input("Deposite from (checking/saving): ")
-                                print(customer.get_current_balance(account_id , account))
+                                print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))               
                                 customer.deposit(account_id, account , amount)
 
@@ -49,8 +49,8 @@ while True:
                                     print("b) Transfer from saving to checking")
                                     print("c) Transfer to another customer account")
                                     print()
-                                    print(customer.get_current_balance(account_id , "checking"))
-                                    print(customer.get_current_balance(account_id , "saving"))
+                                    print(f"The current checking balance: {customer.get_current_balance(account_id , "checking")}")
+                                    print(f"The current saving balance: {customer.get_current_balance(account_id , "saving")}")
                                     print()                           
                                     choice = input("Choice: ").lower()
                                     if choice == "c":
