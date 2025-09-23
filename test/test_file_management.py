@@ -71,7 +71,13 @@ class TestFileManagement(unittest.TestCase):
         self.assertEqual(content,"field1,field2\n100,200\n")
     
     def test_update_row(self):
-        pass
+        # ive already tested if the data list write to the file corectly , so now im juyts testing if the data list updates correctly
+        expected_content = [{"account_id": 10001, "first_name": "shouq", "last_name": "sigera", "password": "juagw362", "balance_checking": 2000, "balance_savings": 10000, "status": "active"},
+                            {"account_id": 10002, "first_name": "james", "last_name": "taylor", "password": "idh36%@#FGd", "balance_checking": 10000, "balance_savings": 10000, "status": "active"}]
+        self.assertNotEqual(self.file.data_list,expected_content)
+        self.file.update_row(10001,'first_name',"shouq")
+        self.assertEqual(self.file.data_list,expected_content)
+        
     
     def test_add_row(self):
         self.file.add_row(
@@ -83,3 +89,9 @@ class TestFileManagement(unittest.TestCase):
             balance_savings=5000000,
             status="active")
         self.assertIn({'account_id': 10010, 'first_name': 'shouq', 'last_name': 'almutairi','password': "1@shouq@123", 'balance_checking': 300, 'balance_savings': 5000000,"status": "active"}, self.file.data_list)
+        
+    def test_get_field_info(self):
+        self.assertEqual(self.file.get_field_info(10001,'first_name') , "suresh")
+        self.assertNotEqual(self.file.get_field_info(10001,'first_name') , "notInFile")
+        with self.assertRaises(CustomerNotFoundError):
+            self.file.get_field_info(10049,'first_name')
