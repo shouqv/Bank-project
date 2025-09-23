@@ -1,4 +1,4 @@
-from file_management import FileManagement
+from .file_management import FileManagement
 
 class Customer():
     # account_id =0
@@ -31,23 +31,21 @@ class Customer():
         
         
         
-    def login(self,account_id ):
-        password = input("Password: ")
+    def login(self,account_id, password):
         regestired_password = self.file_manager.get_field_info(account_id , "password")
         if password == regestired_password:
             return True
         else:
             return False
         
-    def withdraw(self,account_id,amount):
-        account = input("withdraw from: (checking/saving): ")
+    def withdraw(self,account_id,amount, account):
+        
         if account == "checking":
             self.checking_account.withdraw(self.file_manager ,account_id,amount )
         elif account == "saving":
             self.saving_account.withdraw(self.file_manager ,account_id,amount)
             
-    def deposit(self, account_id,amount):
-        account = input("deposit from: (checking/saving): ")
+    def deposit(self, account_id,amount,account):
         if account == "checking":
             self.checking_account.deposit(self.file_manager ,account_id, amount)
         elif account == "saving":
