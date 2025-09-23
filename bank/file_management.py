@@ -1,5 +1,5 @@
 import csv 
-
+from .custome_exceptions import CustomerNotFoundError
 
 class FileManagement():
     def __init__(self,file_name):
@@ -57,7 +57,8 @@ class FileManagement():
             if data["account_id"] == customer_id:
                 return data
 
-        return -1 #could raise a customized error here
+        # return -1 #could raise a customized error here
+        raise CustomerNotFoundError(f"The id {customer_id}, does not exist")
 
     def add_row(self , **kwargs):
         for key in kwargs:
@@ -75,12 +76,10 @@ class FileManagement():
         
     def get_field_info(self,customer_id , field):
         data_row= self.get_row(customer_id)
-        if data_row != -1:
-            for key , value in data_row.items():
-                if key == field:
-                    return value
-        else:
-            return #custome error here
+        for key , value in data_row.items():
+            if key == field:
+                return value
+
     
     
 

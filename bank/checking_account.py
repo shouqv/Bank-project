@@ -21,7 +21,7 @@ class CheckingAccount():
                 if CheckingAccount.overdrafts_count[account_id] >= 2:
                     file.update_row(account_id, "status" , "inactive")
                     raise OverdraftLimitExceededError("You have exceeded the overdraft attempt limit, account deactivated")
-                    
+
 
                 if amount > current_balance_checking:
                     if new_balance_checking - 35 < -100:

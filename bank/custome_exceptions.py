@@ -17,3 +17,6 @@ class OverdraftRejectedError(Exception):
 class OverdraftLimitExceededError(Exception):
     # when he tried to overdraft for the third time
     pass
+
+class CustomerNotFoundError(Exception):
+    pass

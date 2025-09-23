@@ -1,10 +1,33 @@
 import unittest
 
 from bank.file_management import FileManagement
+from bank.custome_exceptions import CustomerNotFoundError
 
-class TestDBInteraction(unittest.TestCase):
+
+import tempfile
+import os
+
+
+class TestFileManagement(unittest.TestCase):
     def setUp(self):
-        self.file = FileManagement("")
+        
+        # self.file = FileManagement("")
+        # crediting https://sqlpey.com/python/top-4-methods-to-unit-test-file-writing-functions-in-python-using-unittest/ for the below idea
+        # crediting the following for making me understand more:
+        # https://www.geeksforgeeks.org/python/create-temporary-files-and-directories-using-python-tempfile/
+        # https://docs.python.org/3/library/tempfile.html
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, newline='') as temp:
+            self.temp = temp
+            self.temp.write("account_id,first_name,last_name,password,balance_checking,balance_savings,status\n10001,suresh,sigera,juagw362,2000,10000,active\n10002,james,taylor,idh36%@#FGd,10000,10000,active")
+            self.temp.close()
+        
+        
+        self.file = FileManagement(self.temp.name)
+        # print(self.file.data_list)
+
+        
+    def tearDown(self):
+        os.remove(self.temp.name)
     
     def test_is_number(self):
         self.assertTrue(self.file.is_number("11"))
@@ -13,21 +36,50 @@ class TestDBInteraction(unittest.TestCase):
         
         
     def test_load_data(self):
+        # here it checks if file not found the error is raised correctle
         with self.assertRaises(FileNotFoundError):
             FileManagement("non_existent_file.csv")
+        # based on the values i populated in the setup , the datalist should have the same values as the one in the file
+        expected_content = [{"account_id": 10001, "first_name": "suresh", "last_name": "sigera", "password": "juagw362", "balance_checking": 2000, "balance_savings": 10000, "status": "active"},
+                            {"account_id": 10002, "first_name": "james", "last_name": "taylor", "password": "idh36%@#FGd", "balance_checking": 10000, "balance_savings": 10000, "status": "active"}]
+        
+        self.assertEqual(self.file.data_list, expected_content)
+            
+            
             
     def test_get_row(self):
         self.file.data_list = [
-{'account_id': 10004, 'frst_name': 'stacey', 'last_name': 'abrams','password': 'DEU8_qw3y72$', 'balance_checking': 2000, 'balance_savings': 20000}]
+{'account_id': 10004, 'first_name': 'stacey', 'last_name': 'abrams','password': 'DEU8_qw3y72$', 'balance_checking': 2000, 'balance_savings': 20000, "status": "active"}]
         self.assertEqual(self.file.get_row(10004), self.file.data_list[0])
         # testing when not found
-        self.assertEqual(self.file.get_row(10009), -1)
+        with self.assertRaises(CustomerNotFoundError):
+            self.file.get_row(10070)
     
+
     def test_write_to_file(self):
-        pass
+        # simplfying the data
+        self.file.fields= ["field1", "field2"]
+        self.file.data_list = [{"field1":100 , "field2":200}]
+        
+        # if i called this, it should be written to the file
+        self.file.write_to_file()
+        
+        # obtaining whats written in the file
+        with open(self.temp.name, 'r') as f:
+            content = f.read()
+        # checking if its equal
+        self.assertEqual(content,"field1,field2\n100,200\n")
     
     def test_update_row(self):
         pass
     
     def test_add_row(self):
-        pass
+        self.file.add_row(
+            account_id=10010,
+            first_name="shouq",
+            last_name="almutairi",
+            password="1@shouq@123",
+            balance_checking=300,
+            balance_savings=5000000,
+            status="active")
+        self.assertIn({'account_id': 10010, 'first_name': 'shouq', 'last_name': 'almutairi','password': "1@shouq@123", 'balance_checking': 300, 'balance_savings': 5000000,"status": "active"}, self.file.data_list)
