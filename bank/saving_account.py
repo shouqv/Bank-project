@@ -27,15 +27,11 @@ class SavingAccount():
             message = ""
             new_balance_saving = current_balance_saving + amount
             if flag:
-                # print(f"The new saving balance: {new_balance_saving}")
                 message = f"The new saving balance: {new_balance_saving}"
                 
             file.update_row(account_id, "balance_savings" , new_balance_saving)
             return message
         else:
-            # answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
-            # if answer == "yes":
-            #     self.create_account(file,account_id )
             raise AccountIsNoneError(f"Error: the saving account with id={account_id}, have not been initated yet", "balance_savings")
     
     def transfer(self,file ,  account_id,checking_account , amount):

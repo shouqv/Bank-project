@@ -100,7 +100,7 @@ class TestCheckingAccount(unittest.TestCase):
         pass
     
     # same here, it calls a function in file management that was already tested
-    def get_current_checking_balance(self):
+    def test_get_current_checking_balance(self):
         pass
     
     # here it checks if it exist meaning is it set to none or has a baklnce
