@@ -86,6 +86,8 @@ while True:
                         print(e)
                     except exceptions.OverdraftLimitExceededError as e:
                         print(e)
+                    except exceptions.CustomerNotFoundError as e:
+                        print(e)
                         
             else:
                 print("Password incorrect!")
