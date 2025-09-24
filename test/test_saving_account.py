@@ -2,7 +2,7 @@ import unittest
 import tempfile
 from bank.file_management import FileManagement
 from bank.saving_account import SavingAccount
-from bank.custome_exceptions import OverdraftRejectedError , OverdraftLimitExceededError , InactiveAccountError ,AccountIsNoneError
+from bank.custome_exceptions import OverdraftRejectedError ,AccountIsNoneError
 import os
 
 
