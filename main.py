@@ -37,13 +37,14 @@ while True:
                                 account = input("Withdraw from (checking/saving): ").strip().lower()
                                 print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))
-                                customer.withdraw(account_id, account , amount)
+                                print(customer.withdraw(account_id, account , amount)) 
+                                
 
                             case "2":
                                 account = input("Deposite to (checking/saving): ").strip().lower()
                                 print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))               
-                                customer.deposit(account_id, account , amount)
+                                print(customer.deposit(account_id, account , amount))
 
 
                             case "3":
@@ -62,10 +63,10 @@ while True:
 
                                     if choice == "c":
                                         other_customer = int(input("Enter the account ID to transfer to: "))
-                                        customer.transfer(account_id, choice, amount, from_account=from_account, other_customer=other_customer)
+                                        print(customer.transfer(account_id, choice, amount, from_account=from_account, other_customer=other_customer))
                                         print(f"Transferred {amount} from {from_account} to customer {other_customer}")
                                     else:
-                                        customer.transfer(account_id, choice, amount)
+                                        print(customer.transfer(account_id, choice, amount))
                                         print("Transfer completed successfully.")
 
                             case "4":

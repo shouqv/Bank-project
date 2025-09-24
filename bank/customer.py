@@ -33,38 +33,39 @@ class Customer():
         
     def withdraw(self,account_id , account, amount ):
         if account == "checking":
-            self.checking_account.withdraw(self.file_manager ,account_id, amount)
+            return self.checking_account.withdraw(self.file_manager ,account_id, amount)
         elif account == "saving":
             self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
-            print("invalid account choice")
+            return "invalid account choice"
             
     def deposit(self, account_id,account, amount):
 
         if account == "checking":
-            self.checking_account.deposit(self.file_manager ,account_id , amount)
+            return self.checking_account.deposit(self.file_manager ,account_id , amount)
         elif account == "saving":
-            self.saving_account.deposit(self.file_manager ,account_id, amount)
+            return self.saving_account.deposit(self.file_manager ,account_id, amount)
         else:
-            print("invalid account choice")
+            return "invalid account choice"
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
 
         match choice:
             case "a":
-                self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
+                return self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
             case "b":
-                self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
+                return self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
             case "c":
                 if not from_account or not other_customer:
                     raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
                 
                 if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
                     raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
-                self.withdraw(account_id , from_account, amount)
-                # other_customer = int(input("Enter the account id to transfer it to: "))
+                
+                
                 if other_customer != account_id:
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
+                return self.withdraw(account_id , from_account, amount)
             case _:
                 print("Invalid choice")
                 

@@ -1,6 +1,7 @@
 import unittest
 import tempfile
 from bank.file_management import FileManagement
+from bank.checking_account import CheckingAccount
 import os
 
 # to check later https://www.geeksforgeeks.org/python/python-testing-output-to-stdout/
@@ -17,8 +18,7 @@ class TestCheckingAccount(unittest.TestCase):
         
         # needed to be passed 
         self.file = FileManagement(self.temp.name)
-        
-        
+        self.account = CheckingAccount()
 
         
     def tearDown(self):
@@ -26,7 +26,9 @@ class TestCheckingAccount(unittest.TestCase):
         
         
     def test_withdraw(self):
-        pass
+        expected_value = 1900
+        self.account.withdraw(self.file, 10001, 100 , flag=True)
+        
     
     def test_deposit(self):
         

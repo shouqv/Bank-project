@@ -6,20 +6,17 @@ class SavingAccount():
         if self.check_if_account_exist(file,account_id):
 
             amount = int(amount)
-            
+            message = ""
             if amount > current_balance_saving:
-                # print("Not enought money in saving account for this transaction. Operation canceled")
-                # return
                 raise OverdraftRejectedError("Cant have an overdraft of a saving account!")
             new_balance_saving = current_balance_saving - amount
             if flag:
-                print(f"The new saving balance: {new_balance_saving}")
+                # print(f"The new saving balance: {new_balance_saving}")
+                message = f"The new saving balance: {new_balance_saving}"
             file.update_row(account_id, "balance_savings" , new_balance_saving)
-            
+            return message
         else:
-            # answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
-            # if answer == "yes":
-            #     self.create_account(file,account_id )
+
             raise AccountIsNoneError(f"Error: the saving account with id={account_id}, have not been initated yet", "balance_savings")
     
     def deposit(self,file,account_id ,amount,flag=True):
@@ -27,12 +24,14 @@ class SavingAccount():
         if self.check_if_account_exist(file,account_id):
         
             amount = int(amount)
-
+            message = ""
             new_balance_saving = current_balance_saving + amount
             if flag:
-                print(f"The new saving balance: {new_balance_saving}")
+                # print(f"The new saving balance: {new_balance_saving}")
+                message = f"The new saving balance: {new_balance_saving}"
                 
             file.update_row(account_id, "balance_savings" , new_balance_saving)
+            return message
         else:
             # answer = input("You dont have a saving account, do you wish to create one? (yes/no) ").lower()
             # if answer == "yes":
@@ -40,8 +39,9 @@ class SavingAccount():
             raise AccountIsNoneError(f"Error: the saving account with id={account_id}, have not been initated yet", "balance_savings")
     
     def transfer(self,file ,  account_id,checking_account , amount):
-        checking_account.withdraw(file,account_id, amount)
-        self.deposit(file,account_id , amount)
+        message = checking_account.withdraw(file,account_id, amount) +"\n"
+        message += self.deposit(file,account_id , amount)
+        return message
         
     
     # def create_account(self, file, account_id):
