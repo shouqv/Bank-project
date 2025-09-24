@@ -95,3 +95,17 @@ class TestFileManagement(unittest.TestCase):
         self.assertNotEqual(self.file.get_field_info(10001,'first_name') , "notInFile")
         with self.assertRaises(CustomerNotFoundError):
             self.file.get_field_info(10049,'first_name')
+            
+            
+    def test_get_last_row_id(self):
+        expected_value= 10002 #based on the value i populated in the setup
+        self.assertEqual(self.file.get_last_row_id(),expected_value)
+
+    def test_convert_data_type(self):
+        self.file.data_list = [{"account_id":"100" , "balance_checking":"200","password":"234563"}]
+        # this to demenstrate that the method will indeed conver the reqired numbersd to int while keeping password as string
+        expected_value = [{"account_id":100 , "balance_checking":200,"password":"234563"}]
+        self.assertNotEqual(self.file.data_list,expected_value)
+        self.file.convert_data_type()
+        self.assertEqual(self.file.data_list,expected_value)
+        
