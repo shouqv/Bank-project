@@ -20,3 +20,6 @@ class OverdraftLimitExceededError(Exception):
 
 class CustomerNotFoundError(Exception):
     pass
+
+class InvalidChoiceError(Exception):
+    pass

@@ -1,6 +1,7 @@
 from .file_management import FileManagement
 from .checking_account import CheckingAccount
 from .saving_account import SavingAccount
+from .custome_exceptions import AccountIsNoneError,InvalidChoiceError
 
 class Customer():
     
@@ -35,7 +36,7 @@ class Customer():
         elif account.lower() == "saving":
             return self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
-            return "invalid account choice"
+            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
             
     def deposit(self, account_id,account, amount):
         if account == "checking":
@@ -43,7 +44,7 @@ class Customer():
         elif account == "saving":
             return self.saving_account.deposit(self.file_manager ,account_id, amount)
         else:
-            return "invalid account choice"
+            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
         match choice:
@@ -56,14 +57,16 @@ class Customer():
                     raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
                 
                 if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
-                    raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
+                    # raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
+                    raise AccountIsNoneError(f"The customer {other_customer} does not have an account, cant transfer!")
                 
                 
                 if other_customer != account_id:
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
                 return self.withdraw(account_id , from_account, amount)
             case _:
-                print("Invalid choice")
+                # return "Invalid choice"
+                raise InvalidChoiceError(f"The option:{choice}, is invalid! Try again")
                 
     def get_current_balance(self ,account_id , account ):
         if account == "checking":

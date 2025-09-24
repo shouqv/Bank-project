@@ -88,6 +88,8 @@ while True:
                         print(e)
                     except exceptions.CustomerNotFoundError as e:
                         print(e)
+                    except exceptions.InvalidChoiceError as e:
+                        print(e)
                         
             else:
                 print("Password incorrect!")
