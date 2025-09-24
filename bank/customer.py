@@ -19,8 +19,6 @@ class Customer():
             balance_checking=balance_checking,
             balance_savings=balance_savings,
             status=status)
-
-    
         
         
         
@@ -32,15 +30,14 @@ class Customer():
             return False
         
     def withdraw(self,account_id , account, amount ):
-        if account == "checking":
+        if account.lower() == "checking":
             return self.checking_account.withdraw(self.file_manager ,account_id, amount)
-        elif account == "saving":
-            self.saving_account.withdraw(self.file_manager ,account_id , amount)
+        elif account.lower() == "saving":
+            return self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
             return "invalid account choice"
             
     def deposit(self, account_id,account, amount):
-
         if account == "checking":
             return self.checking_account.deposit(self.file_manager ,account_id , amount)
         elif account == "saving":
@@ -49,7 +46,6 @@ class Customer():
             return "invalid account choice"
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
-
         match choice:
             case "a":
                 return self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
