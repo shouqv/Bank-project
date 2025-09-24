@@ -73,6 +73,8 @@ class Customer():
             return self.checking_account.get_current_checking_balance(self.file_manager ,account_id )
         elif account == "saving":
             return self.saving_account.get_current_saving_balance(self.file_manager ,account_id)
+        else:
+            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
         
     def create_account(self, account_id, field, new_balance_checking ):
         self.file_manager.update_row(account_id,field,new_balance_checking)

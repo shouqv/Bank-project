@@ -41,26 +41,6 @@ class TestCustomer(unittest.TestCase):
             self.customer.deposit(10001,"wrong",100000)
         
         
-        # def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
-        # match choice:
-        #     case "a":
-        #         return self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
-        #     case "b":
-        #         return self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
-        #     case "c":
-        #         if not from_account or not other_customer:
-        #             raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
-                
-        #         if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
-        #             raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
-                
-                
-        #         if other_customer != account_id:
-        #             self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
-        #         return self.withdraw(account_id , from_account, amount)
-        #     case _:
-        #         print("Invalid choice")
-        
     def test_transfer(self):
         # testing c errors, as the methods called are already tested
         with self.assertRaises(ValueError):
