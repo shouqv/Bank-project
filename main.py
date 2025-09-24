@@ -10,14 +10,15 @@ while True:
     
     match choice:
         case "1":
-            account_id = int(input("Enter account id: "))
+            account_id = customer.customer_generated_id()
+            print(f"The account id is: {account_id}")
             first_name = input("Enter first name: ")
             last_name = input("Enter last name: ")
             password = input("Enter your password: ")
             print("Type None if you don’t want to create any of the below accounts")
             balance_checking = input("Checking account balance: ")
             balance_savings = input("Saving account balance: ") 
-            customer.add_new_customer(account_id, first_name, last_name, password, balance_checking, balance_savings)
+            customer.add_new_customer( account_id,first_name, last_name, password, balance_checking, balance_savings)
             print("Customer added successfully.")
             
             
@@ -33,13 +34,13 @@ while True:
                         selection = input("Choice: ")
                         match selection:
                             case "1":
-                                account = input("Withdraw from (checking/saving): ")
+                                account = input("Withdraw from (checking/saving): ").strip().lower()
                                 print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))
                                 customer.withdraw(account_id, account , amount)
 
                             case "2":
-                                account = input("Deposite from (checking/saving): ")
+                                account = input("Deposite to (checking/saving): ").strip().lower()
                                 print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
                                 amount = int(input("Amount: "))               
                                 customer.deposit(account_id, account , amount)
@@ -55,7 +56,7 @@ while True:
                                     print()                           
                                     choice = input("Choice: ").lower()
                                     if choice == "c":
-                                        from_account = input("Transfer from (checking/saving): ").lower() #just personal preference, he chooses the account then the ammount                                   
+                                        from_account = input("Transfer from (checking/saving): ").strip().lower() #just personal preference, he chooses the account then the ammount                                   
                                     amount = int(input("Amount: "))
 
 

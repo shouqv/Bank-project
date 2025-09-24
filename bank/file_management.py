@@ -31,13 +31,14 @@ class FileManagement():
                 
             self.fields = csv_reader.fieldnames 
         
-            # to convert the read values to numbers 
-            for row in self.data_list:
-                for key,value in row.items():
-                    if key == "password":
-                        continue
-                    if self.is_number(value):
-                        row[f"{key}"] = int(value)
+            # # to convert the read values to numbers 
+            # for row in self.data_list:
+            #     for key,value in row.items():
+            #         if key == "password":
+            #             continue
+            #         if self.is_number(value):
+            #             row[f"{key}"] = int(value)
+            self.convert_data_type()
 
 
 
@@ -48,6 +49,7 @@ class FileManagement():
             writer = csv.DictWriter(file, fieldnames=self.fields)
             writer.writeheader()
             writer.writerows(self.data_list)
+        self.convert_data_type()
 
 
 
@@ -80,10 +82,20 @@ class FileManagement():
             if key == field:
                 return value
 
-    
-    
+    def get_last_row_id(self):
+        if not self.data_list:
+            raise ValueError("The file is empty!")
+        return self.data_list[-1]["account_id"]
+
+    def convert_data_type(self):
+            for row in self.data_list:
+                for key,value in row.items():
+                    if key == "password":
+                        continue
+                    if self.is_number(value):
+                        row[f"{key}"] = int(value)
 
 
 
 # file = FileManagement("data/bank.csv")
-# file.add_row(account_id=10,frst_name = "nada",last_name = "almutairi",password="327gh",balance_checking=300,balance_savings=600,status="active")
+

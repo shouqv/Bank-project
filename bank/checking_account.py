@@ -83,7 +83,7 @@ class CheckingAccount():
         
     def get_current_checking_balance(self,file,account_id):
         current_checking_balance= file.get_field_info(account_id, "balance_checking")
-        # print(f"Current checking balance: {current_checking_balance}")
+        # print(type(current_checking_balance))
         return current_checking_balance
         
     def check_if_account_exist(self,file ,account_id):

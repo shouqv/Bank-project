@@ -3,7 +3,7 @@ from .checking_account import CheckingAccount
 from .saving_account import SavingAccount
 
 class Customer():
-    # account_id =0
+    
     def __init__(self, file_name):
         self.file_manager = FileManagement(file_name)
         self.checking_account = CheckingAccount()
@@ -37,7 +37,7 @@ class Customer():
         elif account == "saving":
             self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
-            print("invalid choice")
+            print("invalid account choice")
             
     def deposit(self, account_id,account, amount):
 
@@ -46,7 +46,7 @@ class Customer():
         elif account == "saving":
             self.saving_account.deposit(self.file_manager ,account_id, amount)
         else:
-            print("invalid choice")
+            print("invalid account choice")
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
 
@@ -76,3 +76,6 @@ class Customer():
         
     def create_account(self, account_id, field, new_balance_checking ):
         self.file_manager.update_row(account_id,field,new_balance_checking)
+    
+    def customer_generated_id(self):
+        return self.file_manager.get_last_row_id() + 1
