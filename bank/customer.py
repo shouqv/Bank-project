@@ -79,3 +79,8 @@ class Customer():
     
     def customer_generated_id(self):
         return self.file_manager.get_last_row_id() + 1
+    
+    def customer_greetings(self, account_id):
+        message = self.file_manager.get_field_info(account_id,"first_name")
+        message = message +" " +self.file_manager.get_field_info(account_id,"last_name")
+        return message

@@ -20,6 +20,7 @@ while True:
             balance_savings = input("Saving account balance: ") 
             customer.add_new_customer( account_id,first_name, last_name, password, balance_checking, balance_savings)
             print("Customer added successfully.")
+            print(f"Welcome {customer.customer_greetings(account_id)}")
             
             
         case "2":
@@ -27,7 +28,7 @@ while True:
             password = input("password: ")
             
             if customer.login(account_id,password):
-                
+                print(f"Welcome {customer.customer_greetings(account_id)}")
                 while True:
                     try:
                         print("1) Withdraw  2) Deposit 3) Transfer 4) Logout")

@@ -9,3 +9,5 @@ account_id,first_name,last_name,password,balance_checking,balance_savings,status
 10008,omar,almutairi,123,471,1060,active
 10009,afnan,almutairi,1,0,30,active
 10010,nada,almutairi,12345,10,10,active
+10011,shahad,alshehri,900,10000,2000,active
+10012,noora,albuaenin,20,100000,1000000,active
