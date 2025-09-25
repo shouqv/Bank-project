@@ -84,3 +84,5 @@ class Customer():
         message = self.file_manager.get_field_info(account_id,"first_name")
         message = message +" " +self.file_manager.get_field_info(account_id,"last_name")
         return message
+    
+    

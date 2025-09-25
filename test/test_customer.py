@@ -52,4 +52,9 @@ class TestCustomer(unittest.TestCase):
         with self.assertRaises(InvalidChoiceError):
             self.customer.transfer(10001,"j",100,"checking",10002)
             
-            
+    def test_customer_greetings(self):
+        self.assertEqual(self.customer.customer_greetings(10001), "suresh sigera")
+        
+    def test_customer_generated_id(self):
+        self.assertEqual(self.customer.customer_generated_id(),10003)
+

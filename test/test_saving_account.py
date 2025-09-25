@@ -65,13 +65,13 @@ class TestSavingAccount(unittest.TestCase):
             self.account.deposit(self.file, 10001, 10 )
         
         
-    # # no need to repeat test below as the called methods are already tested:)
-    # def test_transfer(self):
-    #     pass
+    # no need to repeat test below as the called methods are already tested:)
+    def test_transfer(self):
+        pass
     
-    # # same here, it calls a function in file management that was already tested
-    # def test_get_current_saving_balance(self):
-    #     pass
+    # same here, it calls a function in file management that was already tested
+    def test_get_current_saving_balance(self):
+        pass
     
     # here it checks if it exist meaning is it set to none or has a baklnce
     def test_check_if_account_exist(self):
