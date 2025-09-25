@@ -8,3 +8,4 @@ account_id,first_name,last_name,password,balance_checking,balance_savings,status
 10007,john,sam,123,3020,none,active
 10008,omar,almutairi,123,471,1060,active
 10009,afnan,almutairi,1,0,30,active
+10010,nada,almutairi,12345,10,10,active

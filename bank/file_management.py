@@ -59,7 +59,7 @@ class FileManagement():
     def add_row(self , **kwargs):
         for key in kwargs:
             if key not in self.fields:
-                return #could rise an error here
+                raise ValueError(f"The field {key}, is not compatible with the file field!") 
         
         self.data_list.append(kwargs)
         self.write_to_file()

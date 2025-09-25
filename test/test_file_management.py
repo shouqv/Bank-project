@@ -90,6 +90,16 @@ class TestFileManagement(unittest.TestCase):
             status="active")
         self.assertIn({'account_id': 10010, 'first_name': 'shouq', 'last_name': 'almutairi','password': "1@shouq@123", 'balance_checking': 300, 'balance_savings': 5000000,"status": "active"}, self.file.data_list)
         
+        with self.assertRaises(ValueError):
+            self.file.add_row(
+            account=10010, #i have changed the name here diffrently than the fields withihn the csv file, this will make inconsisities in the dect list
+            first_name="shouq",
+            last_name="almutairi",
+            password="1@shouq@123",
+            balance_checking=300,
+            balance_savings=5000000,
+            status="active")
+        
     def test_get_field_info(self):
         self.assertEqual(self.file.get_field_info(10001,'first_name') , "suresh")
         self.assertNotEqual(self.file.get_field_info(10001,'first_name') , "notInFile")
