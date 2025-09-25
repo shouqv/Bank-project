@@ -52,8 +52,6 @@ class FileManagement():
         for data in self.data_list:
             if data["account_id"] == customer_id:
                 return data
-
-
         raise CustomerNotFoundError(f"The id {customer_id}, does not exist")
 
     def add_row(self , **kwargs):
@@ -65,9 +63,13 @@ class FileManagement():
         self.write_to_file()
 
     def update_row(self,customer_id, field , new_value):
+        not_updated = True
         for i in range(len(self.data_list)):
             if self.data_list[i]["account_id"] == customer_id:
                 self.data_list[i][field] = new_value
+                not_updated = False
+        if not_updated:
+            raise CustomerNotFoundError(f"The id {customer_id}, does not exist")
         self.write_to_file()
         
     def get_field_info(self,customer_id , field):

@@ -78,6 +78,9 @@ class TestFileManagement(unittest.TestCase):
         self.file.update_row(10001,'first_name',"shouq")
         self.assertEqual(self.file.data_list,expected_content)
         
+        with self.assertRaises(CustomerNotFoundError):
+            self.file.update_row(10003,'first_name',"nada")
+        
     
     def test_add_row(self):
         self.file.add_row(
@@ -122,4 +125,18 @@ class TestFileManagement(unittest.TestCase):
         self.assertNotEqual(self.file.data_list,expected_value)
         self.file.convert_data_type()
         self.assertEqual(self.file.data_list,expected_value)
+        
+    def test_add_row_and_get_last_row_id(self):
+        # adding new user, other than the ones in the set up
+        self.file.add_row(
+        account_id=10021,
+        first_name="new",
+        last_name="Customer",
+        password="123",
+        balance_checking=100,
+        balance_savings=200,
+        status="active"
+        )
+        self.assertEqual(self.file.get_last_row_id(), 10021)
+
         
