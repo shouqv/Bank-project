@@ -47,6 +47,10 @@ class Customer():
             raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
             
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
+        #
+        if choice == "c" and (from_account !="checking" and from_account != "saving"): 
+            raise InvalidChoiceError(f"The account:{from_account}, is invalid! Try again")
+        
         match choice:
             case "a":
                 return self.saving_account.transfer(self.file_manager,account_id,self.checking_account,amount)
@@ -84,5 +88,18 @@ class Customer():
         message = self.file_manager.get_field_info(account_id,"first_name")
         message = message +" " +self.file_manager.get_field_info(account_id,"last_name")
         return message
+    
+    # extra from me, so that i can customize any input that i wanna convert to a number and could raise a value error
+    def customer_entered_numbers(self,number,message,type="float"):
+        try:
+            if type.lower() == "int":
+                number = int(number)
+            else:
+                number = float(number)
+            return number
+        except ValueError:
+            raise ValueError(message)
+        except TypeError:
+            raise TypeError(message)
     
     
