@@ -61,11 +61,9 @@ class CheckingAccount():
             if status == "inactive" and new_balance_checking>=0:
                 file.update_row(account_id, "status" , "active")
                 CheckingAccount.overdrafts_count[account_id] = 0
-                # print("Account reactivated")
                 message = "Account reactivated\n"
             
             if flag:
-                # print(f"The new checking balance: {new_balance_checking}")
                 message = message + f"The new checking balance: {new_balance_checking}"
             file.update_row(account_id, "balance_checking" , new_balance_checking)
             return message
@@ -77,10 +75,7 @@ class CheckingAccount():
         message += self.deposit(file,account_id , amount)
         return  message
     
-    # def create_account(self,file, account_id, new_balance_checking):
-    #     # new_balance_checking = int(input("Enter the chekcing account balance: "))
-    #     file.update_row(account_id,"balance_checking",new_balance_checking)
-    #     # print(f"the checking account has been created")
+
         
         
     def get_current_checking_balance(self,file,account_id):

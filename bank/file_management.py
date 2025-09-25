@@ -31,13 +31,7 @@ class FileManagement():
                 
             self.fields = csv_reader.fieldnames 
         
-            # # to convert the read values to numbers 
-            # for row in self.data_list:
-            #     for key,value in row.items():
-            #         if key == "password":
-            #             continue
-            #         if self.is_number(value):
-            #             row[f"{key}"] = int(value)
+
             self.convert_data_type()
 
 
@@ -59,7 +53,7 @@ class FileManagement():
             if data["account_id"] == customer_id:
                 return data
 
-        # return -1 #could raise a customized error here
+
         raise CustomerNotFoundError(f"The id {customer_id}, does not exist")
 
     def add_row(self , **kwargs):
@@ -97,5 +91,5 @@ class FileManagement():
 
 
 
-# file = FileManagement("data/bank.csv")
+
 

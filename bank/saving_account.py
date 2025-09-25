@@ -40,10 +40,6 @@ class SavingAccount():
         return message
         
     
-    # def create_account(self, file, account_id):
-    #     new_balance_saving = int(input("Enter the saving account balance: "))
-    #     file.update_row(account_id,"balance_savings",new_balance_saving)
-    #     print(f"the saving account has been created")
         
     
     def get_current_saving_balance(self,file,account_id):

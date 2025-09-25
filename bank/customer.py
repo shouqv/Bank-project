@@ -57,7 +57,6 @@ class Customer():
                     raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
                 
                 if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
-                    # raise ValueError(f"The customer {other_customer} does not have an account, cant transfer!")
                     raise AccountIsNoneError(f"The customer {other_customer} does not have an account, cant transfer!")
                 
                 
@@ -65,7 +64,6 @@ class Customer():
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
                 return self.withdraw(account_id , from_account, amount)
             case _:
-                # return "Invalid choice"
                 raise InvalidChoiceError(f"The option:{choice}, is invalid! Try again")
                 
     def get_current_balance(self ,account_id , account ):

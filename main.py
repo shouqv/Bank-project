@@ -27,7 +27,7 @@ while True:
             password = input("password: ")
             
             if customer.login(account_id,password):
-                # get customer name
+                
                 while True:
                     try:
                         print("1) Withdraw  2) Deposit 3) Transfer 4) Logout")
