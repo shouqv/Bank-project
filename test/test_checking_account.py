@@ -87,7 +87,7 @@ class TestCheckingAccount(unittest.TestCase):
         expected_value = [{"account_id": 10001, "first_name": "suresh","balance_checking": 0.0, "balance_savings": 10000.0, "status": "active"}]
         result = self.account.deposit(self.file ,10001 , 100)
         self.assertEqual(self.file.data_list ,expected_value )
-        self.assertEqual(result , "Account reactivated\nThe new checking balance: 0.0")
+        self.assertEqual(result , "Checking account reactivated\nThe new checking balance: 0.0")
         self.assertEqual(CheckingAccount.overdrafts_count[10001], 0) #to ensure the overdraft is rested
         
         # testing if his account was none, meaning wasnt created in the first place and was tryint to use it
