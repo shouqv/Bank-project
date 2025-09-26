@@ -1,7 +1,7 @@
 # Bank System Project
 
 
-## Descrivtion
+## Description
 
 This project implements a banking system in **Python**, allowing cashiers to manage customer accounts stored in a CSV file. It leverages **file handling**, **exception handling**, and is developed following a **test-driven development (TDD)** approach.  
 
@@ -37,6 +37,7 @@ The system supports functionalities including:
 
 
 ## File Structure
+```
 Banking-With-Python/
 │
 ├── bank/ # Directory for main files for bank system 
@@ -57,3 +58,5 @@ Banking-With-Python/
 |
 ├── main.py
 └── README.md
+
+```
