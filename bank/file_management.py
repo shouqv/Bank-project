@@ -90,6 +90,7 @@ class FileManagement():
                         continue
                     if key == "account_id":
                         row[f"{key}"] = int(value)
+                        continue
                     if self.is_number(value):
                         row[f"{key}"] = float(value)
 
