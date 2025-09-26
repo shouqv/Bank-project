@@ -42,25 +42,6 @@ class Customer():
         else:
             raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
         
-    # def withdraw(self,account_id , account, amount ):
-    #     account = account.lower()
-    #     account_map = {
-    #     "checking": self.checking_account,
-    #     "saving": self.saving_account
-    #     } 
-        
-    #     if account not in account_map:
-    #         raise InvalidChoiceError(f"The option: {account}, is invalid! Try again")
-            
-            
-    #     before_balance = self.get_current_balance(account_id, account)
-    #     result = account_map[account].withdraw(self.file_manager, account_id, amount)
-    #     new_balance = self.get_current_balance(account_id, account)
-
-    #     # Record the transaction for both account
-    #     self.transaction.add_transaction(account_id,self.customer_greetings(account_id),f"withdraw {amount}",before_balance,account,new_balance)
-
-    #     return result
             
     def deposit(self, account_id,account, amount):
         account = account.lower()

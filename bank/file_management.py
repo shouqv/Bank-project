@@ -88,8 +88,10 @@ class FileManagement():
                 for key,value in row.items():
                     if key == "password":
                         continue
-                    if self.is_number(value):
+                    if key == "account_id":
                         row[f"{key}"] = int(value)
+                    if self.is_number(value):
+                        row[f"{key}"] = float(value)
 
 
 
