@@ -2,7 +2,7 @@ from .file_management import FileManagement
 from .checking_account import CheckingAccount
 from .saving_account import SavingAccount
 from .custome_exceptions import AccountIsNoneError,InvalidChoiceError
-from .transactions import Transaction
+
 
 class Customer():
     
@@ -11,7 +11,7 @@ class Customer():
         self.checking_account = CheckingAccount()
         self.saving_account = SavingAccount()
         
-        self.transaction = Transaction()
+        
         
     def add_new_customer(self, account_id, first_name, last_name, password, balance_checking, balance_savings):
         status = "active"
@@ -74,7 +74,9 @@ class Customer():
                 if other_customer != account_id:
                     result = self.withdraw(account_id , from_account, amount)
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
-                return result
+                    return result
+                else:
+                    raise ValueError("You cant transfer to your account using this option, please refer back to choice:a/b")
             case _:
                 raise InvalidChoiceError(f"The option:{choice}, is invalid! Try again")
             
