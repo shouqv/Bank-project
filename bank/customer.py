@@ -2,6 +2,7 @@ from .file_management import FileManagement
 from .checking_account import CheckingAccount
 from .saving_account import SavingAccount
 from .custome_exceptions import AccountIsNoneError,InvalidChoiceError
+from .transactions import Transaction
 
 class Customer():
     
@@ -9,6 +10,8 @@ class Customer():
         self.file_manager = FileManagement(file_name)
         self.checking_account = CheckingAccount()
         self.saving_account = SavingAccount()
+        
+        self.transaction = Transaction()
         
     def add_new_customer(self, account_id, first_name, last_name, password, balance_checking, balance_savings):
         status = "active"
@@ -32,7 +35,10 @@ class Customer():
         
     def withdraw(self,account_id , account, amount ):
         if account.lower() == "checking":
+            # self.transaction.add_transaction(account_id,self.customer_greetings(account_id),"withdraw",00,"checking",self.get_current_balance(account_id , account))
+            
             return self.checking_account.withdraw(self.file_manager ,account_id, amount)
+
         elif account.lower() == "saving":
             return self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
