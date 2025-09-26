@@ -43,7 +43,7 @@ class TestCustomer(unittest.TestCase):
         
     def test_transfer(self):
         # testing c errors, as the methods called are already tested
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InvalidChoiceError):
             self.customer.transfer(10001,"c",100)
         with self.assertRaises(ValueError):
             self.customer.transfer(10001,"c",100,"checking")
