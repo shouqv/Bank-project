@@ -40,7 +40,7 @@ The system supports functionalities including:
 ```
 Banking-With-Python/
 │
-├── bank/ # Directory for main files for bank system 
+├── bank/                   # Core banking logic
 │ ├── checking_account.py
 │ ├── custome_exceptions.py
 │ ├── customer.py
@@ -48,15 +48,27 @@ Banking-With-Python/
 │ └── saving_account.py
 |
 ├── data/
-│ └── bank.csv #CSV file storing customer data
+│ └── bank.csv              # Stores customer data
 |
-├── test/ # Directory for TDD unit tests
+├── test/                   # Unit tests (TDD approach)
 │ ├── test_checking_account.py
 │ ├── test_customer.py
 │ ├── test_file_management.py
 │ └── test_saving_account.py
 |
-├── main.py
+├── main.py                 # Main user interface
 └── README.md
 
 ```
+
+# What I Learned
+
+- How to design and implement a project using Test-Driven Development (TDD) from the ground up.
+
+- The importance of modularity by separating concerns into classes (Customer, CheckingAccount, SavingAccount, FileManagement).
+
+- How to implement custom exceptions to handle domain-specific errors gracefully.
+
+- Practical experience with file I/O, data persistence in CSV, and input validation.
+
+- Building a CLI banking system that feels close to real-world workflows.
