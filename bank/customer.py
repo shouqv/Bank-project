@@ -105,6 +105,8 @@ class Customer():
         try:
             if type.lower() == "int":
                 number = int(number)
+            elif str(number).lower() == "none":
+                return number
             else:
                 number = float(number)
             return number
