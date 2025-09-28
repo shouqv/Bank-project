@@ -114,9 +114,8 @@ class TestFileManagement(unittest.TestCase):
         expected_value= 10002 #based on the value i populated in the setup
         self.assertEqual(self.file.get_last_row_id(),expected_value)
         
-        self.file.data_list=[] #making it empty to test the raising of an error
-        with self.assertRaises(ValueError):
-            self.file.get_last_row_id()
+        self.file.data_list=[] #making it empty 
+        self.assertEqual(self.file.get_last_row_id(),9999)
 
     def test_convert_data_type(self):
         self.file.data_list = [{"account_id":"100" , "balance_checking":"200","password":"234563"}]
