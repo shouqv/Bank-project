@@ -10,7 +10,8 @@ The system supports functionalities including:
 - Adding new customers  
 - Depositing and withdrawing money  
 - Transferring funds between accounts, including to other customers' accounts  
-- Overdraft protection with rules and account reactivation  
+- Overdraft protection with rules and account reactivation
+- Custom exceptions to handle invalid inputs and errors (e.g., invalid options, incorrect IDs, empty files, invalid numeric values, inactive accounts, overdraft-related errors, etc.)
 
 ## Features
 - **Add New Customer**  
