@@ -40,7 +40,7 @@ class Customer():
         elif account == "saving":
             return self.saving_account.withdraw(self.file_manager ,account_id , amount)
         else:
-            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
+            raise InvalidChoiceError(f"The option: {account}, is invalid. Try again")
         
             
     def deposit(self, account_id,account, amount):
@@ -50,7 +50,7 @@ class Customer():
         elif account == "saving":
             return self.saving_account.deposit(self.file_manager ,account_id, amount)
         else:
-            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
+            raise InvalidChoiceError(f"The option: {account}, is invalid. Try again")
             
     
     def transfer(self,account_id , choice, amount, from_account=None, other_customer=None):
@@ -65,10 +65,10 @@ class Customer():
                 return self.checking_account.transfer(self.file_manager,account_id,self.saving_account,amount)
             case "c":
                 if not from_account or not other_customer:
-                    raise ValueError("the account to transfer from and the id of the other customer must be provided for this choice")
+                    raise ValueError("The account to transfer from and the ID of the other customer must be provided for this choice")
                 
                 if not self.checking_account.check_if_account_exist(self.file_manager,other_customer):
-                    raise AccountIsNoneError(f"The customer {other_customer} does not have an account, cant transfer!")
+                    raise AccountIsNoneError(f"The customer {other_customer} does not have an account. Can't transfer!")
                 
                 
                 if other_customer != account_id:
@@ -76,9 +76,9 @@ class Customer():
                     self.checking_account.deposit(self.file_manager ,other_customer,amount, False)
                     return result
                 else:
-                    raise ValueError("You cant transfer to your account using this option, please refer back to choice:a/b")
+                    raise ValueError("You can't transfer to your own account using this option. Please use choice 'a' or 'b' instead")
             case _:
-                raise InvalidChoiceError(f"The option:{choice}, is invalid! Try again")
+                raise InvalidChoiceError(f"The option: {choice}, is invalid. Try again")
             
                 
     def get_current_balance(self ,account_id , account ):
@@ -87,7 +87,7 @@ class Customer():
         elif account == "saving":
             return self.saving_account.get_current_saving_balance(self.file_manager ,account_id)
         else:
-            raise InvalidChoiceError(f"The option:{account}, is invalid! Try again")
+            raise InvalidChoiceError(f"The option: {account}, is invalid. Try again")
         
     def create_account(self, account_id, field, new_balance_checking ):
         self.file_manager.update_row(account_id,field,new_balance_checking)

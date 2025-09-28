@@ -1,5 +1,6 @@
 # Bank System Project
 
+Find the [updated bank system](https://github.com/shouqv/bank_project_updated)
 
 ## Description
 

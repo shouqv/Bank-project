@@ -3,10 +3,10 @@ import bank.custome_exceptions as exceptions
 
 try:
     customer = Customer("data/bank.csv")
-    print("welcome to the bank")
+    print("Welcome to ACME bank")
 
     while True:
-        print("1) Add customer  2) Login 3) Exit")
+        print("1) Add customer  2) Login  3) Exit")
         choice = input("Choice: ")
         try:
             match choice:
@@ -17,8 +17,8 @@ try:
                     last_name = input("Enter last name: ")
                     password = input("Enter your password: ")
                     print("Type None if you don’t want to create any of the below accounts")
-                    balance_checking = customer.customer_entered_numbers(input("Checking account balance: "),"Please ensure to enter a valid checking balance")
-                    balance_savings = customer.customer_entered_numbers(input("Saving account balance: "),"Please ensure to enter a valid saving balance")
+                    balance_checking = customer.customer_entered_numbers(input("Checking account balance: "),"Please ensure you enter a valid checking balance")
+                    balance_savings = customer.customer_entered_numbers(input("Saving account balance: "),"Please ensure you enter a valid savings balance")
                     customer.add_new_customer( account_id,first_name, last_name, password, balance_checking, balance_savings)
                     print("Customer added successfully.")
                     print(f"Welcome {customer.customer_greetings(account_id)}")
@@ -26,26 +26,26 @@ try:
 
                 case "2":
                     account_id = customer.customer_entered_numbers(input("Account ID: "),"Invalid ID, please enter a number","int")
-                    password = input("password: ")
+                    password = input("Password: ")
 
                     if customer.login(account_id,password):
                         print(f"Welcome {customer.customer_greetings(account_id)}")
                         while True:
                             try:
-                                print("1) Withdraw  2) Deposit 3) Transfer 4) Logout")
+                                print("1) Withdraw  2) Deposit  3) Transfer  4) Logout")
                                 selection = input("Choice: ")
                                 match selection:
                                     case "1":
                                         account = input("Withdraw from (checking/saving): ").strip().lower()
                                         print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
-                                        amount = customer.customer_entered_numbers(input("Amount: "),"Invalid ammount, please enter a number")
+                                        amount = customer.customer_entered_numbers(input("Amount: "),"Invalid amount, please enter a number")
                                         print(customer.withdraw(account_id, account , amount)) 
 
 
                                     case "2":
                                         account = input("Deposite to (checking/saving): ").strip().lower()
                                         print(f"The current {account} balance: {customer.get_current_balance(account_id , account)}")
-                                        amount = customer.customer_entered_numbers(input("Amount: "),"Invalid ammount, please enter a number")              
+                                        amount = customer.customer_entered_numbers(input("Amount: "),"Invalid amount, please enter a number")              
                                         print(customer.deposit(account_id, account , amount))
 
 
@@ -60,7 +60,7 @@ try:
                                             choice = input("Choice: ").lower()
                                             if choice == "c":
                                                 from_account = input("Transfer from (checking/saving): ").strip().lower() #just personal preference, he chooses the account then the ammount                                   
-                                            amount = customer.customer_entered_numbers(input("Amount: "),"Invalid ammount, please enter a number")
+                                            amount = customer.customer_entered_numbers(input("Amount: "),"Invalid amount, please enter a number")
 
 
                                             if choice == "c":
@@ -84,7 +84,7 @@ try:
                                 if e.account_name:
                                     answer = input(f"You dont have a {e.account_name}, do you wish to create one? (yes/no) ").lower()
                                     if answer == "yes":
-                                        inital_balance = customer.customer_entered_numbers(input("Enter the new account balance: "),"Invalid ammount, please enter a number")
+                                        inital_balance = customer.customer_entered_numbers(input("Enter the new account balance: "),"Invalid amount, please enter a number")
                                         customer.create_account(account_id , e.account_name,inital_balance)
                             except exceptions.OverdraftRejectedError as e:
                                 print(e)

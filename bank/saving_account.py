@@ -8,7 +8,7 @@ class SavingAccount():
             amount = float(amount)
             message = ""
             if amount > current_balance_saving:
-                raise OverdraftRejectedError("Cant have an overdraft of a saving account!")
+                raise OverdraftRejectedError("Can't have an overdraft on a savings account!")
             new_balance_saving = current_balance_saving - amount
             if flag:
                 # print(f"The new saving balance: {new_balance_saving}")
@@ -17,7 +17,7 @@ class SavingAccount():
             return message
         else:
 
-            raise AccountIsNoneError(f"Error: the saving account with id={account_id}, have not been initated yet", "balance_savings")
+            raise AccountIsNoneError(f"Error: The savings account with ID={account_id} has not been initiated yet", "balance_savings")
     
     def deposit(self,file,account_id ,amount,flag=True):
         current_balance_saving = self.get_current_saving_balance(file , account_id)
@@ -32,7 +32,7 @@ class SavingAccount():
             file.update_row(account_id, "balance_savings" , new_balance_saving)
             return message
         else:
-            raise AccountIsNoneError(f"Error: the saving account with id={account_id}, have not been initated yet", "balance_savings")
+            raise AccountIsNoneError(f"Error: The savings account with ID={account_id} has not been initiated yet", "balance_savings")
     
     def transfer(self,file ,  account_id,checking_account , amount):
         message = checking_account.withdraw(file,account_id, amount) +"\n"
